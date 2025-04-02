@@ -1,0 +1,60 @@
+<!-- url.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URLを設定</title>
+</head>
+<body>
+    <div class="container">
+        <h1>URLを設定</h1>
+        <p>現在のURL: <span id="current-url">未設定</span></p>
+        <p>送信先URLを変更するには, <code>url.json</code> をGitHub repositoryで編集してください。</p>
+        <p><a id="repo-link" href="#" target="_blank">このサイトへとび、url.json </a>  の"url" の値を変更してください。</p>
+    </div>
+
+    <style>
+        body {
+            background-color: #eeeeee;
+        }
+
+        h1 {
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            width: fit-content;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            background-color: antiquewhite;
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+<script>
+    const repo = "Harry-30090/dynamic-QR-code";
+    const branch = "main";
+    const filePath = "url.json";
+
+    function fetchCurrentUrl() {
+        fetch(`https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("current-url").innerText = data.url;
+            })
+            .catch(error => {
+                console.error("Error fetching current URL:", error);
+            });
+    }
+    
+    document.getElementById("repo-link").href = `https://github.com/${repo}/blob/${branch}/${filePath}`;
+    
+    fetchCurrentUrl();
+</script>
+</body>
+</html>
